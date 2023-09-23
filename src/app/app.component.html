@@ -1,0 +1,53 @@
+<header style="text-align: center; border: 1px solid black;">Angular App</header>
+
+<div class="container">
+    <a name="AddNew" id="AddNew" class="btn btn-default" (click)="addNew()" role="button">Add New</a>
+    <div class="row">
+        <div class="col-12">
+            <table class="table  table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;" class="text-center">Action</th>
+                        <th>Sr No</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Date Of Birth</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="isAddNew">
+                        <td>
+                            <a name="SaveButton" id="SaveButton" class="btn btn-primary" role="button" (click)="saveStudent(newStudent)">Save</a> |
+                            <a name="CancelButton" id="CancelButton" class="btn btn-danger" (click)="cancel()" role="button">Cancel</a>
+                        </td>
+                        <td></td>
+                        <td><input type="text" class="form-control" [(ngModel)]="newStudent.name"></td>
+                        <td><input type="text" class="form-control" [(ngModel)]="newStudent.address"></td>
+                        <td><input type="date" class="form-control" [ngModel]="newStudent.dateOfBirth | date:'yyyy-MM-dd'" (ngModelChange)="newStudent.dateOfBirth = $event"></td>
+                    </tr>
+                    <tr *ngFor="let item of allStudents; let i=index">
+                        <td *ngIf="!item.isEdit">
+                            <a name="Edit" id="Edit" class="btn btn-primary" (click)="edit(item)" role="button">Edit</a> |
+                            <a name="delete" id="delete" class="btn btn-danger" (click)="delete(item.id)" role="button">Delete</a>
+                        </td>
+                        <td *ngIf="item.isEdit">
+                            <a name="Update" id="Update" class="btn btn-primary" (click)="update(item)" role="button">Update</a> |
+                            <a name="CancelUpdate" id="CancelUpdate" class="btn btn-danger" (click)="cancelUpdate(item)" role="button">X</a>
+                        </td>
+                        <td *ngIf="!item.isEdit">{{i+1}}</td>
+                        <td *ngIf="item.isEdit"></td>
+
+                        <td *ngIf="!item.isEdit">{{item.name}}</td>
+                        <td *ngIf="item.isEdit"><input type="text" class="form-control" [(ngModel)]="item.name"></td>
+
+                        <td *ngIf="!item.isEdit">{{item.address}}</td>
+                        <td *ngIf="item.isEdit"><input type="text" class="form-control" [(ngModel)]="item.address"></td>
+
+                        <td *ngIf="!item.isEdit">{{item.dateOfBirth}}</td>
+                        <td *ngIf="item.isEdit"><input type="date" class="form-control" [ngModel]="item.dateOfBirth | date:'yyyy-MM-dd'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
